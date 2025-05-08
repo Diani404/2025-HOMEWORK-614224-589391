@@ -13,8 +13,6 @@ import it.uniroma3.diadia.giocatore.Giocatore;
  */
 
 public class Partita {
-
-	
 	
 	private Labirinto lab;
 	private Giocatore player;
