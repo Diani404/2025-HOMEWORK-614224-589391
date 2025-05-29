@@ -1,30 +1,20 @@
 package it.uniroma3.diadia.ambienti;
 
-import it.uniroma3.diadia.giocatore.Giocatore;
-
 public class StanzaBuia extends Stanza {
-	private String oggettoLuminoso;
+
+	private  String attrezzoLucente;
 	
-	public StanzaBuia(String nome, String oggetto) {
+	public StanzaBuia(String nome , String attrezzoLucente) {
 		super(nome);
-		oggettoLuminoso = oggetto;
-	}
-	
-	/**
-	 * Modifica la descrizione della stanza
-	 * 
-	 * @return "Qui c'è buio pesto" se il giocatore non possiede l'oggetto luminoso nella borsa
-	 * la descrizione normale se questo giocatore invece ha l'oggetto richiesto
-	 * 
-	 */
-	
-	@Override
-	public String getDescrizione(Giocatore giocatore) {
-		if(!giocatore.getBorsa().hasAttrezzo(this.oggettoLuminoso)) {
-			String buio = "Qui c'è un buio pesto";
-			return buio;
-		}
-		return super.getDescrizione(giocatore);
+		this.attrezzoLucente = attrezzoLucente;
 	}
 
+	@Override
+	public String getDescrizione() {
+		String buio = new String();
+		buio = "qui c'è un buio pesto";
+		if(!this.hasAttrezzo(attrezzoLucente))
+			return buio;
+		return super.getDescrizione();
+	}
 }

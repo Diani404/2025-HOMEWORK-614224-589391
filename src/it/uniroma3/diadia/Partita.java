@@ -1,7 +1,7 @@
 package it.uniroma3.diadia;
-
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
+
 import it.uniroma3.diadia.giocatore.Giocatore;
 
 /**
@@ -13,51 +13,53 @@ import it.uniroma3.diadia.giocatore.Giocatore;
  */
 
 public class Partita {
-	
-	private Labirinto lab;
-	private Giocatore player;
-	
+
+
+
+	private Labirinto labirinto;
+	private Giocatore giocatore;
 	private boolean finita;
-	
-	
-	public Partita(){
-		//creaStanze();
-		lab = new Labirinto();
+
+	public Partita(Labirinto labirinto){
+		this.labirinto = labirinto;
+		giocatore = new Giocatore();
+		//labirinto.creaStanze();
 		this.finita = false;
-		player = new Giocatore("Bruno");
-	}
-	
-	// i metodi set e get delle stanze vincenti e correnti 
-	// richiamano quelli nella classe Labirinto, che li gestisce
-	
-	public Stanza getStanzaVincente() {
-		return lab.getVincente();
 	}
 
-	public void setStanzaCorrente(Stanza stanzaCorrente) {
-		lab.setCorrente(stanzaCorrente);
+	public Labirinto getLabirinto(){
+		return labirinto;
 	}
 
-	public Stanza getStanzaCorrente() {
-		return lab.getCorrente();
+	public void setLabirinto(Labirinto labirinto) {
+		this.labirinto = labirinto;
 	}
-	
+
+
+	public Giocatore getGiocatore() {
+		return giocatore;
+	}
+
+	public void setGiocatore(Giocatore giocatore) {
+		this.giocatore = giocatore;
+	}
+
 	/**
 	 * Restituisce vero se e solo se la partita e' stata vinta
 	 * @return vero se partita vinta
 	 */
 	public boolean vinta() {
-		return this.getStanzaCorrente() == this.getStanzaVincente();
+		return labirinto.getStanzaCorrente()== labirinto.getStanzaVincente();
 	}
-	
+
 	/**
 	 * Restituisce vero se e solo se la partita e' finita
 	 * @return vero se partita finita
 	 */
 	public boolean isFinita() {
-		return finita || vinta() || (player.getCfu() == 0);
+		return finita || vinta() || (this.getGiocatore().getCfu() == 0);
 	}
-	
+
 	/**
 	 * Imposta la partita come finita
 	 *
@@ -65,20 +67,18 @@ public class Partita {
 	public void setFinita() {
 		this.finita = true;
 	}
+
+	public boolean giocatoreIsVivo() {
+		return this.giocatore.getCfu()>0;
+	}
 	
-	// i metodi set e get dei cfu richiamano
-	// quelli nella classe Labirinto, che li gestisce
-	
-	public int getCfu() {
-		return player.getCfu();
+	public void setStanzaCorrente(Stanza stanzaCorrente) {
+		this.getLabirinto().setStanzaCorrente(stanzaCorrente);
 	}
 
-	public void setCfu(int cfu) {
-		player.setCfu(cfu);		
+	public Stanza getStanzaCorrente() {
+		return this.getLabirinto().getStanzaCorrente();
 	}
 	
-	public Giocatore getGiocatore() {
-		return this.player;
-	}
-	
+
 }

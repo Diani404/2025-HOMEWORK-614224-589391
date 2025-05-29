@@ -1,53 +1,19 @@
 package it.uniroma3.diadia.giocatore;
 
-import it.uniroma3.diadia.ambienti.Stanza;
-import it.uniroma3.diadia.attrezzi.Attrezzo;
-
-//TODO fare classe test 
-
-/**
- * Questa classe gestisce i cfu del giocatore durante la partita
- *
- * @author  Diana
- * @see Stanza
- * @version base
- */
+import it.uniroma3.diadia.Configuratore;
 
 public class Giocatore {
-	
-	
-	static final private int CFU_INIZIALI = 20;	
+	static final private int CFU_INIZIALI = Configuratore.getCFU();
+	//static final private int CFU_INIZIALI = 20;
+
 	private int cfu;
-	private String nome;
-	
 	private Borsa borsa;
-	
-	public Giocatore(String nome) {
-		this.nome= nome;
-		this.cfu=CFU_INIZIALI;
-		borsa = new Borsa();
+
+	public Giocatore() {
+		this.cfu = CFU_INIZIALI;
+		this.borsa = new Borsa();
 	}
-	
-	// aggiunge un attrezzo e lo memorizza nella borsa
-	
-	public boolean aggiungiAttrezzo(Attrezzo attrezzo) {
-		return borsa.addAttrezzo(attrezzo);
-	}
-	
-	// RIMUOVI ATTREZZO DALLA BORSA
-	public Attrezzo removeAttrezzo(Attrezzo attrezzo) {
-		if(attrezzo!=null)
-			return borsa.removeAttrezzo(attrezzo.getNome());
-		return null;
-	}
-	
-	//ritorna la borsa
-	public Borsa getBorsa() {
-		return this.borsa;
-	}
-	
-	// gestione dei cfu
-	
+
 	public int getCfu() {
 		return this.cfu;
 	}
@@ -56,10 +22,13 @@ public class Giocatore {
 		this.cfu = cfu;		
 	}
 
-	// get nome
-	
-	public String getNome() {
-		return nome;
+	public Borsa getBorsa() {
+		return borsa;
+	}
+
+	public void setBorsa(Borsa borsa) {
+		this.borsa = borsa;
 	}	
+	
 	
 }

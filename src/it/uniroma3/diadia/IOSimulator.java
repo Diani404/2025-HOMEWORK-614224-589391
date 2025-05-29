@@ -1,29 +1,56 @@
 package it.uniroma3.diadia;
+
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.List;
 
-public class IOSimulator implements IO{
+public class IOSimulator implements IO {
 
-	private final String[] IN = {"prendi pass","vai sud","prendi lanterna","vai est","vai est","vai ovest","vai nord","posa pass","vai nord","vai ovest"};
-	private ArrayList<String> out;
-	
-	public IOSimulator() {
-		out = new ArrayList<>();
+	private List<String> righeLette;
+	private int indiceRigheLette;
+
+	public List<String> getMessaggiProdotti() {
+		return messaggiProdotti;
+	}
+
+	public void setMessaggiProdotti(List<String> messaggiProdotti) {
+		this.messaggiProdotti = messaggiProdotti;
+	}
+
+	//forse si potrebbe inserire una mappa al posto della lista per ricordare ogni riga letta quale messaggi abbia prodotto
+	private List<String> messaggiProdotti;
+	private int indiceMessaggiProdotti;
+	private int indiceMessaggiMostrati;
+
+	public IOSimulator(List<String> righeDaLeggere) {
+		this.righeLette = righeDaLeggere;
+		this.indiceRigheLette = 0;
+		this.indiceMessaggiMostrati = 0;
+		this.messaggiProdotti = new ArrayList<String>();
+	}
+
+	@Override
+	public String leggiRiga() {
+		String riga = null;
+
+		riga = this.righeLette.get(indiceRigheLette);
+		this.indiceRigheLette++;
+		return riga;
 	}
 
 	@Override
 	public void mostraMessaggio(String msg) {
-		System.out.println(msg);
-		out.add(msg);
+		this.messaggiProdotti.add(this.indiceMessaggiProdotti, msg);
+		this.indiceMessaggiProdotti++;
 	}
-	
-	@Override
-	public String leggiRiga() {
-		Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
+
+	public String nextMessaggio() {
+		String next = this.messaggiProdotti.get(indiceMessaggiMostrati);
+		this.indiceMessaggiMostrati++;
+		return next;
 	}
-	
-	public String[] getComandi() {
-		return IN;
+
+	public boolean hasNextMessaggio() {
+		return this.indiceMessaggiMostrati < this.indiceMessaggiProdotti;
 	}
+
 }

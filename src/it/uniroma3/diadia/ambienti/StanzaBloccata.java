@@ -1,28 +1,32 @@
 package it.uniroma3.diadia.ambienti;
 
-
-//stanza che ha una direzione bloccata che puo essere sbloccata solo da un determinato oggetto
-
 public class StanzaBloccata extends Stanza {
-	
-	private String direzioneBloccata;
-	private String oggettoSbloccante;
-	
-	public StanzaBloccata(String nome, String dir, String unlock) {
+
+	private Direzione direzioneBloccata;
+	private String attrezzoSbloccante;
+
+	public StanzaBloccata(String nome, Direzione direzioneBloccata, String attrezzoSbloccante) {
 		super(nome);
-		direzioneBloccata = dir;
-		oggettoSbloccante = unlock;
+		this.direzioneBloccata = direzioneBloccata;
+		this.attrezzoSbloccante = attrezzoSbloccante;
 	}
-	
+
+
+
 	@Override
-	public Stanza getStanzaAdiacente(String direzione) {
-		if(!this.hasAttrezzo(this.oggettoSbloccante) && direzione.equals(this.direzioneBloccata)) {
-			System.out.println("La direzione è bloccata! Serve: " + this.oggettoSbloccante); 
+	public Stanza getStanzaAdiacente(Direzione direzione) {
+		if(direzioneBloccata.equals(direzione) && !this.hasAttrezzo(attrezzoSbloccante)) {
 			return this;
 		}
-		else {
-			return super.getStanzaAdiacente(direzione);
-		}
-			
+		return super.getStanzaAdiacente(direzione);
+	}
+
+	@Override
+	public String getDescrizione() {
+		String bloccata = "Stanza bloccata nella direzione: "+ direzioneBloccata+"\nPrendi il " + attrezzoSbloccante + " e posalo nella stanza";
+
+		if(!this.hasAttrezzo(attrezzoSbloccante))
+			return bloccata;
+		return super.getDescrizione();
 	}
 }
